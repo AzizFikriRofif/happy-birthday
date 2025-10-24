@@ -531,6 +531,102 @@ p{
 .gift-open + .gift-message {
   display: block;
 }
+  /* ===================== */
+/* 🎯 RESPONSIVE DESIGN */
+/* ===================== */
+
+/* Untuk layar kecil (HP, lebar ≤ 600px) */
+@media (max-width: 600px) {
+
+  body {
+    padding-top: 40px;
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    font-size: 1rem;
+    padding: 0 15px;
+  }
+
+  /* Kue lebih kecil */
+  .cake {
+    width: 200px;
+    margin-top: 100px;
+  }
+  .frosting {
+    width: 160px;
+    height: 25px;
+  }
+  .layer.bottom {
+    height: 45px;
+  }
+  .layer.mid {
+    height: 40px;
+  }
+  .layer.top {
+    height: 35px;
+  }
+
+  /* Buku surat lebih kecil dan pas di layar HP */
+  .book-container {
+    right: -240px;
+    width: 260px;
+    height: 320px;
+  }
+  .book-container.open {
+    right: 10px;
+    width: 250px;
+    height: 75vh;
+  }
+  .book-cover {
+    font-size: 1.1rem;
+    padding: 15px;
+  }
+  .book-pages {
+    font-size: 0.9rem;
+    padding: 15px;
+  }
+
+  /* Kotak hadiah sedikit lebih kecil */
+  .gift-box {
+    width: 85px;
+    height: 85px;
+  }
+  .gift-lid {
+    height: 22px;
+  }
+
+  .gift-message {
+    font-size: 1rem;
+  }
+
+  /* Balon biar ga terlalu padat di HP */
+  .balloon {
+    width: 20px;
+    height: 30px;
+  }
+
+  /* Ubah posisi teks bawah agar tidak kepotong */
+  p:last-of-type {
+    margin-bottom: 60px;
+  }
+
+  /* Tali bendera agak rapat */
+  .bunting {
+    gap: 6px;
+    padding: 10px 30px;
+  }
+  .bunting .flag {
+    width: 20px;
+    height: 20px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -799,3 +895,4 @@ function launchConfetti() {
 </script>
 </body>
 </html>
+
