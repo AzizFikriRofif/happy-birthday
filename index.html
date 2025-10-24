@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Selamat Ulang Tahun!</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  align-items:center;
+  min-height:100vh;
+  background:linear-gradient(160deg,#02110b 0%,#2b042b 50%,#3c0a38 100%);
+  font-family:'Segoe UI',sans-serif;
+  color:#fffbe8;
+  text-align:center;
+  padding-top:60px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Bintang twinkle */
+.stars {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  background: transparent;
+  box-shadow:
+    20vw 10vh white,
+    35vw 40vh white,
+    50vw 20vh white,
+    70vw 60vh white,
+    80vw 30vh white,
+    25vw 80vh white,
+    60vw 10vh white,
+    10vw 50vh white,
+    90vw 75vh white;
+  animation: twinkle 3s infinite alternate;
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Tali ulang tahun di atas */
+.bunting {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  padding: 10px 80px; /* bendera masuk ke dalam 60px dari kiri & kanan */
+  width: 100%;
+  max-width: 600px;
+  box-sizing: border-box;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.bunting .flag {
+  width: 30px;
+  height: 30px;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  background-color: var(--flag-color);
+  box-shadow: 0 0 3px rgba(0,0,0,0.3);
+  animation: sway 3s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+/* Animasi goyang-goyang kecil */
+.bunting .flag:nth-child(odd) {
+  animation-delay: 0s;
+}
+.bunting .flag:nth-child(even) {
+  animation-delay: 1.5s;
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+/* Balon animasi naik */
+.balloon {
+  position: fixed;
+  bottom: -60px;
+  width: 30px;
+  height: 40px;
+  background: linear-gradient(135deg, #FF4B5C, #FFB85F);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  opacity: 0.8;
+  animation: floatUp linear infinite;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.15));
+}
+
+.balloon::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  width: 2px;
+  height: 20px;
+  background: #3333;
+  transform: translateX(-50%);
+  border-radius: 1px;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-110vh) translateX(20px);
+    opacity: 0;
+  }
+}
+
+/* Glow effect for the heading */
+h1 {
+  font-size: 2.6rem;
+  margin-bottom: 1rem;
+  text-shadow:
+    0 0 5px #61c0bf,
+    0 0 10px #8ee3a1,
+    0 0 15px #61c0bf;
+  position: relative;
+  z-index: 1;
+}
+
+p{
+  font-size:1.2rem;
+  margin-top:1rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* ====== KUE ====== */
+.cake{
+  position:relative;
+  width:300px;
+  margin-top:150px;
+  z-index: 3;
+}
+.layer.bottom{
+  position:relative;
+  width:100%;
+  height:60px;
+  border-radius:0 0 20px 20px;
+  background:linear-gradient(to bottom,#d1864a 0%,#b66733 100%);
+  box-shadow:inset 0 5px 0 #f6cbaa;
+}
+.layer.mid{
+  position:relative;
+  width:95%;
+  height:50px;
+  margin:-10px auto;
+  border-radius:10px;
+  background:linear-gradient(to bottom,#ffe7a3 0%,#ffd55b 100%);
+  box-shadow:inset 0 3px 0 #fff8cf;
+}
+.layer.top{
+  position:relative;
+  width:90%;
+  height:45px;
+  margin:-10px auto;
+  border-radius:20px 20px 10px 10px;
+  background:linear-gradient(to bottom,#ffcad4 0%,#f9a6b1 100%);
+  box-shadow:inset 0 3px 0 #ffe8ec;
+}
+
+/* Krim putih di atas */
+.frosting{
+  position:absolute;
+  top:-20px;
+  left:50%;
+  transform:translateX(-50%);
+  width:260px;
+  height:35px;
+  background:repeating-radial-gradient(circle at 10px 10px,#fff 0 8px,#ffe5f0 9px 16px);
+  border-radius:50%;
+  box-shadow:0 3px 5px rgba(0,0,0,0.1);
+}
+
+/* Topping stroberi kecil */
+.topping{
+  position:absolute;
+  width:22px;
+  height:22px;
+  background:#ff4b5c;
+  border-radius:50%;
+  border:2px solid #fff;
+  top:-10px;
+  box-shadow:0 0 4px rgba(0,0,0,0.15);
+}
+.topping::after{
+  content:"";
+  position:absolute;
+  top:4px;left:4px;
+  width:6px;height:6px;
+  background:#fff;
+  border-radius:50%;
+}
+.topping:nth-child(1){left:20%;}
+.topping:nth-child(2){left:45%;}
+.topping:nth-child(3){left:70%;}
+
+/* Lilin */
+.candle{
+  position:absolute;
+  top:-70px;
+  left:50%;
+  transform:translateX(-50%);
+  width:14px;
+  height:60px;
+  background:repeating-linear-gradient(#ff9a9a 0 6px,#ffbcbc 6px 12px);
+  border-radius:4px;
+  box-shadow:inset 0 0 2px rgba(0,0,0,0.3);
+}
+
+/* Api lilin */
+.flame{
+  position:absolute;
+  top:-40px;
+  left:50%;
+  transform:translateX(-50%);
+  width:18px;
+  height:36px;
+  background:radial-gradient(circle at bottom,#fff6a5 0%,#ffb347 70%,transparent 100%);
+  border-radius:50% 50% 20% 20%;
+  transform-origin:bottom center;
+  animation:flicker 0.3s infinite alternate;
+  cursor:pointer;
+}
+.flame.extinct{
+  animation:none;
+  background:transparent;
+}
+
+@keyframes flicker{
+  0%{transform:translateX(-50%) scaleY(1) rotate(-2deg);opacity:1;}
+  50%{transform:translateX(-50%) scaleY(0.9) rotate(2deg);opacity:0.85;}
+  100%{transform:translateX(-50%) scaleY(1) rotate(-1deg);opacity:1;}
+}
+
+/* Confetti */
+.confetti{
+  position:absolute;
+  width:10px;
+  height:10px;
+  background:var(--color);
+  opacity:0;
+  pointer-events:none;
+  animation:fall 5s ease-out forwards;
+}
+@keyframes fall {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(65vh) scale(0.5);
+    opacity: 0;
+  }
+}
+/* Buku muncul dari samping */
+.book-container {
+  position: fixed;
+  top: 50%;
+  right: -270px; /* sembunyi total */
+  transform: translateY(-50%);
+  width: 320px;
+  height: 400px;
+  background: #fefefe;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  transition: right 0.5s ease;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  user-select: none;
+  overflow: hidden;
+}
+
+/* Nongol sedikit */
+.book-container.peek {
+  right: -270px + 50px; /* gak jalan di CSS, harus manual */
+  right: -220px; /* 50px nongol */
+}
+
+/* Buku terbuka penuh */
+.book-container.open {
+  right: 20px;
+}
+
+/* Sampul buku */
+.book-cover {
+  background: linear-gradient(135deg, #ffb85f, #ff4b5c);
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  font-size: 1.3rem;
+  user-select: none;
+  transition: transform 0.6s ease;
+  transform-origin: left;
+  position: relative;
+  padding: 20px;
+  box-sizing: border-box;
+  backface-visibility: hidden;
+}
+
+/* Halaman surat */
+.book-pages {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow: auto;
+  box-shadow: 0 0 15px rgba(0,0,0,0.15);
+  transform-origin: left;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  transition: transform 0.6s ease;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1rem;
+  color: #333;
+  display: none;
+}
+
+/* Saat buku dibuka */
+.book-container.open .book-cover {
+  transform: rotateY(-160deg);
+  box-shadow: none;
+}
+
+.book-container.open .book-pages {
+  display: block;
+  transform: rotateY(0deg);
+}
+
+/* Textarea surat */
+.book-pages textarea {
+  width: 100%;
+  height: 100%;
+  border: none;
+  resize: none;
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+  color: #333;
+  background: #fdf6e3;
+  border-radius: 6px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.book-container.open {
+  right: 20px;
+  height: 80vh;        /* cuma 80% tinggi layar */
+  width: 280px;        /* lebarnya tetap */
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+  overflow: hidden;
+}
+
+/* Tombol close di pojok atas */
+.book-close-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  background: #ff4b5c;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 28px;
+  text-align: center;
+  border-radius: 50%;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  z-index: 10;
+  transition: background-color 0.3s ease;
+  display: none; /* default hidden */
+}
+
+.book-container.open .book-close-btn {
+  display: block; /* muncul saat open */
+}
+/* 🎁 Kotak hadiah */
+.gift-container {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  transition: transform 0.6s ease;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gift-container.show {
+  transform: translateX(-50%) scale(1);
+}
+
+.gift-box {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  background: linear-gradient(145deg, #ff4b5c, #ff7b7b);
+  border-radius: 8px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+  cursor: not-allowed;
+  opacity: 0.7;
+  transition: opacity 0.5s;
+  overflow: visible;
+}
+
+.gift-box.active {
+  cursor: pointer;
+  opacity: 1;
+}
+
+/* Tutup kotak */
+.gift-lid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 28px;
+  background: linear-gradient(145deg, #ffb85f, #ffef5f);
+  border-radius: 8px 8px 0 0;
+  transition: transform 0.4s ease;
+  z-index: 1;
+}
+
+/* Efek buka — tutup naik sedikit ke atas */
+.gift-open .gift-lid {
+  transform: translateY(-40px);
+}
+
+/* Pita vertikal */
+.gift-ribbon {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 12px;
+  height: 100%;
+  background: #fff;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+/* Pita horizontal di tutup */
+.gift-lid::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 5px;
+  background: #fff;
+  border-radius: 5px;
+}
+
+.love {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  font-size: 22px;
+  opacity: 0;
+  z-index: 4;
+  transform: translateX(-50%) scale(0.5);
+  animation: floatLove 5s ease-in-out infinite; /* loop terus */
+  pointer-events: none;
+}
+
+/* animasi melengkung (kayak balon naik) */
+@keyframes floatLove {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 0) scale(0.5);
+  }
+  10% {
+    opacity: 1;
+  }
+  30% {
+    transform: translate(calc(-50% + var(--curveX1)), -80px) rotate(var(--rot1)) scale(0.9);
+  }
+  60% {
+    transform: translate(calc(-50% + var(--curveX2)), -180px) rotate(var(--rot2)) scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--curveX3)), -260px) rotate(var(--rot3)) scale(1.3);
+  }
+}
+
+/* Pesan hadiah */
+.gift-message {
+  margin-top: 10px;
+  color: #ffe;
+  font-size: 1.1rem;
+  text-shadow: 0 0 5px #ffef5f;
+  display: none;
+}
+
+.gift-open + .gift-message {
+  display: block;
+}
+</style>
+</head>
+<body>
+  
+  <div class="stars"></div>
+  
+  <!-- Tali ulang tahun -->
+  <div class="bunting">
+    <div class="flag" style="--flag-color:#FF4B5C;"></div>
+    <div class="flag" style="--flag-color:#FFB85F;"></div>
+    <div class="flag" style="--flag-color:#FFEF5F;"></div>
+    <div class="flag" style="--flag-color:#8EE3A1;"></div>
+    <div class="flag" style="--flag-color:#61C0BF;"></div>
+    <div class="flag" style="--flag-color:#FF4B5C;"></div>
+    <div class="flag" style="--flag-color:#FFB85F;"></div>
+    <div class="flag" style="--flag-color:#FFEF5F;"></div>
+    <div class="flag" style="--flag-color:#8EE3A1;"></div>
+  </div>
+  <!-- Balon animasi -->
+<div class="balloon" style="left: 5vw; animation-duration: 16s; animation-delay: 0s;"></div>
+<div class="balloon" style="left: 15vw; animation-duration: 14s; animation-delay: 2s;"></div>
+<div class="balloon" style="left: 25vw; animation-duration: 18s; animation-delay: 1s; background: linear-gradient(135deg, #61C0BF, #8EE3A1);"></div>
+<div class="balloon" style="left: 35vw; animation-duration: 15s; animation-delay: 4s;"></div>
+<div class="balloon" style="left: 45vw; animation-duration: 20s; animation-delay: 0s; background: linear-gradient(135deg, #FFEF5F, #FFB85F);"></div>
+<div class="balloon" style="left: 55vw; animation-duration: 17s; animation-delay: 3s;"></div>
+<div class="balloon" style="left: 65vw; animation-duration: 16s; animation-delay: 5s; background: linear-gradient(135deg, #FF4B5C, #FFB85F);"></div>
+<div class="balloon" style="left: 70vw; animation-duration: 19s; animation-delay: 2s;"></div>
+<div class="balloon" style="left: 75vw; animation-duration: 15s; animation-delay: 1s; background: linear-gradient(135deg, #61C0BF, #8EE3A1);"></div>
+<div class="balloon" style="left: 85vw; animation-duration: 18s; animation-delay: 3s;"></div>
+<div class="balloon" style="left: 90vw; animation-duration: 20s; animation-delay: 0s; background: linear-gradient(135deg, #FFEF5F, #FFB85F);"></div>
+<div class="balloon" style="left: 95vw; animation-duration: 17s; animation-delay: 4s;"></div>
+
+  <h1>🎉 Happy Birthday 🎉</h1>
+<!-- Buku surat -->
+ <div class="book-container" id="book">
+  <div class="book-close-btn" id="bookCloseBtn">&times;</div>
+  <div class="book-cover">Buka Surat</div>
+<div class="book-pages">
+  <h2 style="text-align:center; color:#ff4b5c;">💌 Selamat Ulang Tahun! 💌</h2>
+  <p style="margin-top:15px; line-height:1.6;">
+    Selamat ulang tahun, dek! 🎈
+    Semoga makin cakep, makin keren, dan makin nurut sama kakak 😜
+    Jangan lupa traktirannya, ya, biar tambah berkah!   
+  </p>
+  <p style="margin-top:15px; line-height: 1.6;">
+Ingat ya, hidup itu kayak main game — kalau gagal di satu level, bukan berarti kalah, tapi waktunya belajar strategi baru. Jangan takut salah, yang penting jangan berhenti mencoba. Teruslah jadi versi terbaik dari dirimu😆.  </p>
+  <p style="margin-top:15px; line-height: 1.6;">Izin kan abang pantun ok👌</p>
+<p style="margin-top:10px; line-height:1.6;">
+    Jalan-jalan ke kota Malang,
+    Beli es krim rasa durian.
+    Selamat ulang tahun, adik sayang,
+    Semoga makin lucu dan keren! 😄 
+  </p>
+  <p style="margin-top:15px; font-style:italic; color:#888;">
+    — Dari Abangmu yang paling kull😎 & Chat gpt
+  </p>
+</div>
+
+</div>
+</div>
+<!-- 🎁 Kotak hadiah -->
+<div class="gift-container" id="gift">
+  <div class="gift-box" id="giftBox">
+    <div class="gift-lid"></div>
+    <div class="gift-ribbon"></div>
+  </div>
+  <div class="gift-message">✨ Hadiah kecil untukmu! ✨</div>
+</div>
+
+<div class="cake">
+  <div class="frosting"></div>
+  <div class="topping"></div>
+    <div class="topping"></div>
+    <div class="topping"></div>
+    <div class="candle">
+      <div class="flame" id="flame"></div>
+    </div>
+    <div class="layer top"></div>
+    <div class="layer mid"></div>
+    <div class="layer bottom"></div>
+  </div>
+  
+  <p>Klik api lilinnya untuk memadamkan… 🕯️</p>
+  <audio id="clapSound" src="asset/1.mp3"></audio>
+  <audio id="bgMusic" src="asset/2.mp3" loop></audio>
+  <script>
+const flame = document.getElementById('flame');
+const book = document.getElementById('book');
+const bookCover = book.querySelector('.book-cover');
+const clapSound = document.getElementById('clapSound');
+const bgMusic = document.getElementById('bgMusic');
+const gift = document.getElementById('gift');
+const giftBox = document.getElementById('giftBox');
+let giftActive = false; // hadiah belum bisa dibuka
+
+function fadeInMusic(audio, duration = 3000, targetVolume = 0.3) {
+  audio.volume = 0;
+  audio.loop = true;
+  audio.play().catch(err => {
+    console.log("Autoplay diblokir:", err);
+  });
+
+  const stepTime = 50;
+  const steps = duration / stepTime;
+  let count = 0;
+
+  const fade = setInterval(() => {
+    count++;
+    audio.volume = Math.min(targetVolume, (count / steps) * targetVolume);
+    if (count >= steps) clearInterval(fade);
+  }, stepTime);
+}
+
+// Jalankan saat halaman dimuat
+window.addEventListener('DOMContentLoaded', () => {
+  fadeInMusic(bgMusic, 3000, 0.3);
+});
+
+
+let flameOn = true;
+function fadeInAudio(audio, duration = 2000, targetVolume = 0.4) {
+  audio.volume = 0;
+  audio.play();
+
+  const stepTime = 50; // interval tiap 50ms
+  const stepCount = duration / stepTime;
+  let currentStep = 0;
+
+  const fadeInterval = setInterval(() => {
+    currentStep++;
+    audio.volume = Math.min(targetVolume, (currentStep / stepCount) * targetVolume);
+
+    if (currentStep >= stepCount) {
+      clearInterval(fadeInterval);
+      audio.volume = targetVolume;
+    }
+  }, stepTime);
+}
+
+flame.addEventListener('click', () => {
+  if (flameOn) {
+    flame.classList.add('extinct');
+    launchConfetti();
+    clapSound.currentTime = 0;
+    fadeInAudio(clapSound, 1500); // efek tepuk tangan
+    fadeInMusic(bgMusic, 3000, 0.3); // 🔊 mulai backsound di sini
+    flameOn = false;
+    showGiftBox(); // 🎁 Munculkan hadiah
+
+
+    book.classList.add('peek');
+    book.classList.remove('open');
+  } else {
+    flame.classList.remove('extinct');
+    flameOn = true;
+    book.classList.remove('peek', 'open');
+  }
+});
+
+// Toggle buka tutup buku ketika klik sampul
+bookCover.addEventListener('click', () => {
+  if (!book.classList.contains('peek')) return; // kalau buku gak nongol, gak bisa buka
+
+  if (book.classList.contains('open')) {
+    // Kalau sudah terbuka, tutup buku -> nongol lagi
+    book.classList.remove('open');
+    book.classList.add('peek');
+  } else {
+    // Buka buku penuh
+    book.classList.add('open');
+    book.classList.remove('peek');
+  }
+});
+
+// Klik sampul buku untuk buka/tutup buku
+bookCover.addEventListener('click', () => {
+  if (!book.classList.contains('peek')) return; // jika buku gak nongol, gak bisa buka
+
+  book.classList.toggle('open');
+  if (!book.classList.contains('open')) {
+    // jika buku ditutup, tetap nongol sedikit
+    book.classList.add('peek');
+  } else {
+    // buka buku, hilangkan peek (supaya geser ke kanan 20px penuh)
+    book.classList.remove('peek');
+  }
+});
+const bookCloseBtn = document.getElementById('bookCloseBtn');
+
+bookCloseBtn.addEventListener('click', (e) => {
+  e.stopPropagation(); // supaya gak ketahuan klik di sampul buku juga
+  book.classList.remove('open');
+  book.classList.add('peek');  // nongol sedikit aja pas tutup
+});
+// Fungsi untuk menampilkan kotak hadiah setelah lilin ditiup
+function showGiftBox() {
+  setTimeout(() => {
+    gift.classList.add('show');
+    // aktifkan setelah muncul
+    setTimeout(() => {
+      giftBox.classList.add('active');
+      giftActive = true;
+    }, 800);
+  }, 1000); // muncul 1 detik setelah tiup
+}
+
+let loveInterval;
+
+giftBox.addEventListener('click', () => {
+  if (!giftActive) return;
+
+  const isOpen = giftBox.classList.toggle('gift-open');
+
+  if (isOpen) {
+    // mulai spawn love terus-menerus
+    loveInterval = setInterval(spawnLoves, 500); // setiap 0.5 detik muncul love baru
+  } else {
+    // stop spawn love
+    clearInterval(loveInterval);
+  }
+});
+
+function spawnLoves() {
+  const love = document.createElement('div');
+  love.classList.add('love');
+  love.textContent = ['💖', '💕', '💞', '💗', '💓'][Math.floor(Math.random() * 5)];
+
+  // posisi acak
+  love.style.left = (45 + Math.random() * 10) + '%';
+  love.style.fontSize = (20 + Math.random() * 12) + 'px';
+
+  // arah melengkung random
+  const curveX1 = (Math.random() * 80 - 40) + 'px';
+  const curveX2 = (Math.random() * 100 - 50) + 'px';
+  const curveX3 = (Math.random() * 120 - 60) + 'px';
+
+  const rot1 = (Math.random() * 20 - 10) + 'deg';
+  const rot2 = (Math.random() * 40 - 20) + 'deg';
+  const rot3 = (Math.random() * 60 - 30) + 'deg';
+
+  love.style.setProperty('--curveX1', curveX1);
+  love.style.setProperty('--curveX2', curveX2);
+  love.style.setProperty('--curveX3', curveX3);
+  love.style.setProperty('--rot1', rot1);
+  love.style.setProperty('--rot2', rot2);
+  love.style.setProperty('--rot3', rot3);
+
+  love.style.animationDelay = (Math.random() * 0.5) + 's';
+  giftBox.appendChild(love);
+
+  setTimeout(() => love.remove(), 5200); // hapus setelah animasi
+}
+
+function launchConfetti() {
+  const colors = ['#FF5E5E', '#FFB85F', '#FFEF5F', '#8EE3A1', '#61C0BF'];
+  for (let i = 0; i < 50; i++) {
+    const conf = document.createElement('div');
+    conf.classList.add('confetti');
+    conf.style.setProperty('--color', colors[Math.floor(Math.random() * colors.length)]);
+    conf.style.left = (Math.random() * window.innerWidth) + 'px';
+    conf.style.top = (Math.random() * 200) + 'px';
+    document.body.appendChild(conf);
+    setTimeout(() => conf.remove(), 5200);
+  }
+}
+</script>
+</body>
+</html>
