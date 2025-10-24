@@ -615,6 +615,24 @@ p{
   p:last-of-type {
     margin-bottom: 60px;
   }
+  /* --- Perbaikan posisi & ukuran bendera di HP --- */
+  .bunting {
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 0;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .bunting .flag {
+    width: 18px;
+    height: 18px;
+  }
 }
 
 </style>
@@ -885,5 +903,6 @@ function launchConfetti() {
 </script>
 </body>
 </html>
+
 
 
